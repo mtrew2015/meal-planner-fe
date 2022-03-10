@@ -1,10 +1,17 @@
 import React from 'react'
 import {NavContainer} from './NavBar.styles'
+import MenuIcon from '@mui/icons-material/Menu';
 
 export default function NavBar() {
   return (
     <NavContainer>
-      <p>Hamburger Menu</p>
+      <MenuIcon fontSize="large"/>
+      <div>
+        <h1>Meal Planner</h1>
+      </div>
+      <div>
+        
+      </div>
     </NavContainer>
   )
 }
