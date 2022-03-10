@@ -1,0 +1,9 @@
+query ingredients($filters:ListIngredientInput){
+  ingredients(filters:$filters)
+  {
+    _id
+    name
+    price
+    qty
+  }
+}
