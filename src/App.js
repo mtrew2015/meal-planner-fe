@@ -1,5 +1,5 @@
 import { Container } from './App.styles';
-import NavBar from './organisms/NavBar/NavBar';
+import NavBar from './organisms/navbar/NavBar';
 
 function App() {
   return (
