@@ -1,10 +1,11 @@
-import './App.css';
+import { Container } from './App.styles';
+import NavBar from './organisms/NavBar/NavBar';
 
 function App() {
   return (
-    <div className='App'>
-      <h1>Meal Planner</h1>
-    </div>
+    <Container>
+      <NavBar/>
+    </Container>
   );
 }
 
