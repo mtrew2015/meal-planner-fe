@@ -275,6 +275,13 @@ export type User = {
   state: Scalars['String'];
 };
 
+export type MealPlansQueryVariables = Exact<{
+  filters?: InputMaybe<ListMealPlanInput>;
+}>;
+
+
+export type MealPlansQuery = { __typename?: 'Query', mealPlans: Array<{ __typename?: 'MealPlan', _id: string, userId: string, weekNumber: number, recipesSelected: Array<{ __typename?: 'Recipe', _id: string, linkToRecipe: string, name: string, serves: number, ingredients: Array<{ __typename?: 'IngredientObject', name: string, price: number, serves: number }> }> }> };
+
 export type IngredientsQueryVariables = Exact<{
   filters?: InputMaybe<ListIngredientInput>;
 }>;
@@ -283,6 +290,54 @@ export type IngredientsQueryVariables = Exact<{
 export type IngredientsQuery = { __typename?: 'Query', ingredients: Array<{ __typename?: 'Ingredient', _id: string, name: string, price: string, qty: string }> };
 
 
+export const MealPlansDocument = gql`
+    query mealPlans($filters: ListMealPlanInput) {
+  mealPlans(filters: $filters) {
+    _id
+    recipesSelected {
+      _id
+      ingredients {
+        name
+        price
+        serves
+      }
+      linkToRecipe
+      name
+      serves
+    }
+    userId
+    weekNumber
+  }
+}
+    `;
+
+/**
+ * __useMealPlansQuery__
+ *
+ * To run a query within a React component, call `useMealPlansQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMealPlansQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMealPlansQuery({
+ *   variables: {
+ *      filters: // value for 'filters'
+ *   },
+ * });
+ */
+export function useMealPlansQuery(baseOptions?: Apollo.QueryHookOptions<MealPlansQuery, MealPlansQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MealPlansQuery, MealPlansQueryVariables>(MealPlansDocument, options);
+      }
+export function useMealPlansLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MealPlansQuery, MealPlansQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MealPlansQuery, MealPlansQueryVariables>(MealPlansDocument, options);
+        }
+export type MealPlansQueryHookResult = ReturnType<typeof useMealPlansQuery>;
+export type MealPlansLazyQueryHookResult = ReturnType<typeof useMealPlansLazyQuery>;
+export type MealPlansQueryResult = Apollo.QueryResult<MealPlansQuery, MealPlansQueryVariables>;
 export const IngredientsDocument = gql`
     query ingredients($filters: ListIngredientInput) {
   ingredients(filters: $filters) {
