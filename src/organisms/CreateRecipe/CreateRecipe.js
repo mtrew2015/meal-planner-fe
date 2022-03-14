@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Button } from '@mui/material';
+import { Button, Dialog } from '@mui/material';
 import './CreateRecipe.scss';
 import { Ingredient } from '../../molecules/Ingredient/Ingredient';
 
@@ -16,6 +16,7 @@ export const CreateRecipe = () => {
   const [ingredientName, setIngredientName] = useState('');
   const [ingredientPrice, setIngredientPrice] = useState('');
   const [serves, setServes] = useState('');
+  const [showModal, setShowModal] = useState(false, true);
   const onSubmit = (data) => {
     console.log(data);
   };
@@ -30,38 +31,50 @@ export const CreateRecipe = () => {
     setIngredientPrice('');
     setServes('');
     setIngredientName('');
+    setShowModal(false);
   };
   return (
     <div className='createFormContainer'>
       <h1>Create Recipe</h1>
       <form className='form' onSubmit={handleSubmit(onSubmit)}>
-        <input {...register('name')} placeholder='Recipe Name' />
-        <input {...register('linkToRecipe')} placeholder='Link To Recipe' />
-        <input {...register('serves')} placeholder='Serves' />
+        <input {...register('name')} required placeholder='Recipe Name' />
+        <input
+          {...register('linkToRecipe')}
+          required
+          placeholder='Link To Recipe'
+        />
+        <input {...register('serves')} required placeholder='Serves' />
 
         <div className='ingredientsContainer'>
+          <Button onClick={() => setShowModal(true)}>Add New Ingredient</Button>
+          <Dialog
+            className='ingredientModal'
+            open={showModal}
+            onClose={() => setShowModal(false)}
+          >
+            <div className='form' onSubmit={addIngredient}>
+              <input
+                value={ingredientName}
+                onChange={(e) => setIngredientName(e.target.value)}
+                placeholder='Ingredient'
+              />
+              <input
+                value={serves}
+                placeholder='serves'
+                onChange={(e) => setServes(e.target.value)}
+              />
+              <input
+                value={ingredientPrice}
+                placeholder='Price'
+                onChange={(e) => setIngredientPrice(e.target.value)}
+              />
+              <Button onClick={addIngredient} value='Add Ingredient'>
+                Add Ingredient
+              </Button>
+            </div>
+          </Dialog>
           <h2>Ingredients:</h2>
-          <div className='form' onSubmit={addIngredient}>
-            <input
-              value={ingredientName}
-              onChange={(e) => setIngredientName(e.target.value)}
-              placeholder='Ingredient'
-            />
-            <input
-              value={serves}
-              placeholder='serves'
-              onChange={(e) => setServes(e.target.value)}
-            />
-            <input
-              value={ingredientPrice}
-              placeholder='Price'
-              onChange={(e) => setIngredientPrice(e.target.value)}
-            />
-            <Button onClick={addIngredient} value='Add Ingredient'>
-              Add Ingredient
-            </Button>
-          </div>
-          {ingredients.length ?<Ingredient ingredients={ingredients} />: ''}
+          {ingredients.length ? <Ingredient ingredients={ingredients} /> : ''}
         </div>
 
         <input className='submitButton' type='submit' />
