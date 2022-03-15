@@ -19,8 +19,6 @@ export const useCreateRecipe = () => {
   const [showModal, setShowModal] = useState(false, true);
 
   const onSubmit = (data) => {
-    console.log(data);
-    console.log(ingredients);
     const payload = {
       name: data.name,
       serves: Number(data.serves),

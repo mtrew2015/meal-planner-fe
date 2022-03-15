@@ -95,6 +95,7 @@ export type ListUserInput = {
 export type MealPlan = {
   __typename?: 'MealPlan';
   _id: Scalars['String'];
+  name: Scalars['String'];
   recipesSelected: Array<Recipe>;
   userId: Scalars['String'];
   weekNumber: Scalars['Float'];
@@ -287,7 +288,7 @@ export type MealPlansQueryVariables = Exact<{
 }>;
 
 
-export type MealPlansQuery = { __typename?: 'Query', mealPlans: Array<{ __typename?: 'MealPlan', _id: string, userId: string, weekNumber: number, recipesSelected: Array<{ __typename?: 'Recipe', _id: string, linkToRecipe: string, name: string, serves: number, ingredients: Array<{ __typename?: 'IngredientObject', name: string, price: number, serves: number }> }> }> };
+export type MealPlansQuery = { __typename?: 'Query', mealPlans: Array<{ __typename?: 'MealPlan', _id: string, userId: string, weekNumber: number, name: string, recipesSelected: Array<{ __typename?: 'Recipe', _id: string, linkToRecipe: string, name: string, serves: number, ingredients: Array<{ __typename?: 'IngredientObject', name: string, price: number, serves: number }> }> }> };
 
 export type IngredientsQueryVariables = Exact<{
   filters?: InputMaybe<ListIngredientInput>;
@@ -354,6 +355,7 @@ export const MealPlansDocument = gql`
     }
     userId
     weekNumber
+    name
   }
 }
     `;

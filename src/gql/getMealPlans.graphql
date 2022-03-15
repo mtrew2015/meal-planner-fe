@@ -14,5 +14,6 @@ query mealPlans($filters: ListMealPlanInput) {
     }
     userId
     weekNumber
+    name
   }
 }
