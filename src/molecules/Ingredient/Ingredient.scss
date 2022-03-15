@@ -1,14 +1,21 @@
-.container{
+.container {
   display: flex;
   width: 100%;
   justify-content: space-between;
-  border: 2px solid red;
   align-items: center;
 }
 
-.ingredientTable{
-  th, td{
+.ingredientTable {
+  th,
+  td {
     padding-right: 65px;
     text-align: center;
   }
+}
+
+.overallContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 400px;
 }

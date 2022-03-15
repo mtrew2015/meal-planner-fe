@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Button, Dialog } from '@mui/material';
+import { Button, Dialog, Paper, TextField, FormControl } from '@mui/material';
 import './CreateRecipe.scss';
 import { Ingredient } from '../../molecules/Ingredient/Ingredient';
 
@@ -11,7 +11,6 @@ export const CreateRecipe = () => {
     watch,
     formState: { errors },
   } = useForm();
-  const [numberOfIngredients, setNumberOfIngredients] = useState(5);
   const [ingredients, setIngredients] = useState([]);
   const [ingredientName, setIngredientName] = useState('');
   const [ingredientPrice, setIngredientPrice] = useState('');
@@ -20,6 +19,8 @@ export const CreateRecipe = () => {
   const onSubmit = (data) => {
     console.log(data);
   };
+
+  console.log(errors);
 
   const addIngredient = (data) => {
     const ingredient = {
@@ -34,16 +35,27 @@ export const CreateRecipe = () => {
     setShowModal(false);
   };
   return (
-    <div className='createFormContainer'>
-      <h1>Create Recipe</h1>
-      <form className='form' onSubmit={handleSubmit(onSubmit)}>
-        <input {...register('name')} required placeholder='Recipe Name' />
-        <input
+    <Paper>
+      <FormControl className='createFormContainer'>
+        <h1>Create Recipe</h1>
+        <TextField
+          {...register('name')}
+          required
+          placeholder='Recipe Name'
+          className='textField'
+        />
+        <TextField
           {...register('linkToRecipe')}
           required
           placeholder='Link To Recipe'
+          className='textField'
         />
-        <input {...register('serves')} required placeholder='Serves' />
+        <TextField
+          {...register('serves')}
+          required
+          placeholder='Serves'
+          className='textField'
+        />
 
         <div className='ingredientsContainer'>
           <Button onClick={() => setShowModal(true)}>Add New Ingredient</Button>
@@ -53,32 +65,41 @@ export const CreateRecipe = () => {
             onClose={() => setShowModal(false)}
           >
             <div className='form' onSubmit={addIngredient}>
-              <input
+              <TextField
                 value={ingredientName}
                 onChange={(e) => setIngredientName(e.target.value)}
                 placeholder='Ingredient'
+                className='textFieldModal'
               />
-              <input
+              <TextField
                 value={serves}
                 placeholder='serves'
                 onChange={(e) => setServes(e.target.value)}
+                className='textFieldModal'
               />
-              <input
+              <TextField
                 value={ingredientPrice}
                 placeholder='Price'
                 onChange={(e) => setIngredientPrice(e.target.value)}
+                className='textFieldModal'
               />
               <Button onClick={addIngredient} value='Add Ingredient'>
                 Add Ingredient
               </Button>
             </div>
           </Dialog>
-          <h2>Ingredients:</h2>
+
           {ingredients.length ? <Ingredient ingredients={ingredients} /> : ''}
         </div>
 
-        <input className='submitButton' type='submit' />
-      </form>
-    </div>
+        <Button
+          onClick={handleSubmit(onSubmit)}
+          className='submitButton'
+          type='submit'
+        >
+          Submit
+        </Button>
+      </FormControl>
+    </Paper>
   );
 };
