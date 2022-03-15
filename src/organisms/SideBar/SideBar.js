@@ -8,6 +8,7 @@ export default function SideBar() {
     <Container>
       <Link className={'linkStyle'} to="/">Home</Link>
       <Link className={'linkStyle'} to="recipes">Recipes</Link>
+      <Link className={'linkStyle'} to="createRecipe">Add Recipe</Link>
     </Container>
   );
 }

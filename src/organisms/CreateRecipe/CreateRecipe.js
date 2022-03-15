@@ -1,61 +1,56 @@
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { Button, Dialog, Paper, TextField, FormControl } from '@mui/material';
 import './CreateRecipe.scss';
 import { Ingredient } from '../../molecules/Ingredient/Ingredient';
+import { ErrorMessage } from '@hookform/error-message';
+import { useCreateRecipe } from './useCreateRecipe';
 
 export const CreateRecipe = () => {
   const {
+    addIngredient,
     register,
     handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
-  const [ingredients, setIngredients] = useState([]);
-  const [ingredientName, setIngredientName] = useState('');
-  const [ingredientPrice, setIngredientPrice] = useState('');
-  const [serves, setServes] = useState('');
-  const [showModal, setShowModal] = useState(false, true);
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+    errors,
+    ingredientName,
+    setIngredientName,
+    ingredients,
+    setIngredients,
+    ingredientPrice,
+    setIngredientPrice,
+    serves,
+    setServes,
+    showModal,
+    setShowModal,
+    onSubmit,
+  } = useCreateRecipe();
 
-  console.log(errors);
-
-  const addIngredient = (data) => {
-    const ingredient = {
-      name: ingredientName,
-      price: ingredientPrice,
-      serves: serves,
-    };
-    setIngredients((prev) => [...prev, ingredient]);
-    setIngredientPrice('');
-    setServes('');
-    setIngredientName('');
-    setShowModal(false);
-  };
   return (
     <Paper>
       <FormControl className='createFormContainer'>
         <h1>Create Recipe</h1>
         <TextField
-          {...register('name')}
-          required
+          {...register('name', { required: 'Name of recipe is required' })}
           placeholder='Recipe Name'
           className='textField'
         />
+        <ErrorMessage errors={errors} name='name' />
         <TextField
-          {...register('linkToRecipe')}
+          {...register('linkToRecipe', {
+            required: 'Link to recipe is required',
+          })}
           required
           placeholder='Link To Recipe'
           className='textField'
         />
+        <ErrorMessage errors={errors} name='linkToRecipe' />
         <TextField
-          {...register('serves')}
-          required
+          {...register('serves', {
+            required: 'Number recipe serves is required',
+          })}
           placeholder='Serves'
           className='textField'
         />
+        <ErrorMessage errors={errors} name='serves' />
 
         <div className='ingredientsContainer'>
           <Button onClick={() => setShowModal(true)}>Add New Ingredient</Button>
@@ -96,6 +91,7 @@ export const CreateRecipe = () => {
           onClick={handleSubmit(onSubmit)}
           className='submitButton'
           type='submit'
+          disabled={!errors}
         >
           Submit
         </Button>
