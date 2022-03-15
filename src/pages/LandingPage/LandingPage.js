@@ -2,6 +2,7 @@ import React from 'react';
 import { getWeekOfYear } from '../../util/dateHelpers';
 import { useLandingPage } from '../LandingPage/useLandingPage';
 import { MealPlan } from '../../organisms/MealPlan/MealPlan';
+import {MealPlanForm} from '../../organisms/MealPlanForm/MealPlanForm'
 export const LandingPage = () => {
   const { mealPlanData } = useLandingPage();
 
@@ -13,6 +14,6 @@ export const LandingPage = () => {
       </div>
     );
   } else {
-    return <div>Create a mealPlan</div>;
+    return <MealPlanForm/>;
   }
 };
