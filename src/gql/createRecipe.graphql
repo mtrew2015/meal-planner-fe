@@ -1,0 +1,15 @@
+mutation createRecipe($payload:CreateRecipeInput!)
+{
+  createRecipe(payload:$payload)
+  {
+		_id
+    ingredients{
+      name
+      price
+      serves
+    }
+    name
+    serves
+    
+  }
+}

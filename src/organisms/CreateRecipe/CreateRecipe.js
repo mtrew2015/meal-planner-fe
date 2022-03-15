@@ -46,6 +46,7 @@ export const CreateRecipe = () => {
         <TextField
           {...register('serves', {
             required: 'Number recipe serves is required',
+            pattern: /^[0-9]*$/
           })}
           placeholder='Serves'
           className='textField'

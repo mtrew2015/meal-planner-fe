@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useCreateRecipeMutation } from '../../generated/graphql.tsx';
 
 export const useCreateRecipe = () => {
+  const [createRecipeMutation, { data, loading, error }] =
+    useCreateRecipeMutation({});
 
   const {
     register,
@@ -14,15 +17,29 @@ export const useCreateRecipe = () => {
   const [ingredientPrice, setIngredientPrice] = useState('');
   const [serves, setServes] = useState('');
   const [showModal, setShowModal] = useState(false, true);
+
   const onSubmit = (data) => {
+    console.log(data);
+    console.log(ingredients);
+    const payload = {
+      name: data.name,
+      serves: Number(data.serves),
+      ingredients: ingredients,
+      linkToRecipe: data.linkToRecipe,
+    };
+    createRecipeMutation({
+      variables: {
+        payload: payload,
+      },
+    });
     console.log(data);
   };
 
   const addIngredient = (data) => {
     const ingredient = {
       name: ingredientName,
-      price: ingredientPrice,
-      serves: serves,
+      price: Number(ingredientPrice),
+      serves: Number(serves),
     };
     setIngredients((prev) => [...prev, ingredient]);
     setIngredientPrice('');
@@ -30,7 +47,6 @@ export const useCreateRecipe = () => {
     setIngredientName('');
     setShowModal(false);
   };
-
 
   return {
     addIngredient,
@@ -47,7 +63,6 @@ export const useCreateRecipe = () => {
     setServes,
     showModal,
     setShowModal,
-    onSubmit
-  }
-
-}
+    onSubmit,
+  };
+};
