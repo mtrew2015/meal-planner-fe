@@ -9,7 +9,7 @@ export const RecipeCardContainer = (props) => {
   return (
     <Paper className="cardsContainer">
       {recipes.map((recipe, idx) => {
-        return <RecipeCard recipe={recipe} idx={idx} />;
+        return <RecipeCard setDialogOpen={props.setDialogOpen} daySelected={props.daySelected} setRecipesSelected={props.setRecipesSelected} key={recipe.id} recipe={recipe} idx={idx} />;
       })}
     </Paper>
   );

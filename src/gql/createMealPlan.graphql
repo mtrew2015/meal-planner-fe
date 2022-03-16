@@ -1,0 +1,11 @@
+mutation createMealPlan($payload:CreateMealPlanInput!)
+{
+  createMealPlan(payload:$payload)
+  {
+    _id
+    userId
+    weekNumber
+    name
+    
+  }
+}

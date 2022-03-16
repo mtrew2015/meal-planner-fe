@@ -276,6 +276,13 @@ export type User = {
   state: Scalars['String'];
 };
 
+export type CreateMealPlanMutationVariables = Exact<{
+  payload: CreateMealPlanInput;
+}>;
+
+
+export type CreateMealPlanMutation = { __typename?: 'Mutation', createMealPlan: { __typename?: 'MealPlan', _id: string, userId: string, weekNumber: number, name: string } };
+
 export type CreateRecipeMutationVariables = Exact<{
   payload: CreateRecipeInput;
 }>;
@@ -298,6 +305,42 @@ export type RecipesQueryVariables = Exact<{
 export type RecipesQuery = { __typename?: 'Query', recipes: Array<{ __typename?: 'Recipe', _id: string, name: string, linkToRecipe: string, serves: number, ingredients: Array<{ __typename?: 'IngredientObject', name: string, price: number, serves: number }> }> };
 
 
+export const CreateMealPlanDocument = gql`
+    mutation createMealPlan($payload: CreateMealPlanInput!) {
+  createMealPlan(payload: $payload) {
+    _id
+    userId
+    weekNumber
+    name
+  }
+}
+    `;
+export type CreateMealPlanMutationFn = Apollo.MutationFunction<CreateMealPlanMutation, CreateMealPlanMutationVariables>;
+
+/**
+ * __useCreateMealPlanMutation__
+ *
+ * To run a mutation, you first call `useCreateMealPlanMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateMealPlanMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createMealPlanMutation, { data, loading, error }] = useCreateMealPlanMutation({
+ *   variables: {
+ *      payload: // value for 'payload'
+ *   },
+ * });
+ */
+export function useCreateMealPlanMutation(baseOptions?: Apollo.MutationHookOptions<CreateMealPlanMutation, CreateMealPlanMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateMealPlanMutation, CreateMealPlanMutationVariables>(CreateMealPlanDocument, options);
+      }
+export type CreateMealPlanMutationHookResult = ReturnType<typeof useCreateMealPlanMutation>;
+export type CreateMealPlanMutationResult = Apollo.MutationResult<CreateMealPlanMutation>;
+export type CreateMealPlanMutationOptions = Apollo.BaseMutationOptions<CreateMealPlanMutation, CreateMealPlanMutationVariables>;
 export const CreateRecipeDocument = gql`
     mutation createRecipe($payload: CreateRecipeInput!) {
   createRecipe(payload: $payload) {
