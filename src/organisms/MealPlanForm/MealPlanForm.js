@@ -5,6 +5,7 @@ import { getWeekOfYear } from '../../util/dateHelpers';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useRecipesLazyQuery } from '../../generated/graphql.tsx';
 import { RecipeCardContainer } from '../RecipeCardContainer/RecipeCardContainer';
+import './MealPlanForm.scss';
 
 export const MealPlanForm = () => {
   const week = getWeekOfYear();
@@ -78,7 +79,7 @@ export const MealPlanForm = () => {
             );
           }
         })}
-        <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
+        <Dialog className="recipeCardDialog" open={dialogOpen} onClose={() => setDialogOpen(false)}>
           <RecipeCardContainer recipes={recipes} />
         </Dialog>
       </FormControl>
