@@ -1,88 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Dialog, Paper, TextField, FormControl } from '@mui/material';
-import { useForm } from 'react-hook-form';
+
 import { getWeekOfYear } from '../../util/dateHelpers';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {
-  useRecipesLazyQuery,
-  useCreateMealPlanMutation,
-} from '../../generated/graphql.tsx';
+
 import { RecipeCardContainer } from '../RecipeCardContainer/RecipeCardContainer';
 import './MealPlanForm.scss';
+import { useMealPlanForm } from './useMealPlanForm';
 
 export const MealPlanForm = (props) => {
-  const {week} = props;
+  const { week } = props;
+
   const {
+    daysOfWeek,
     register,
     handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
-
-  const daysOfWeek = [
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-    'Sunday',
-  ];
-
-  const [
-    createMealPlanMutation,
-    { data: mealPlanData, loading: mealPlanDataLoading, error },
-  ] = useCreateMealPlanMutation({});
-
-  const [getRecipes, { loading, data }] = useRecipesLazyQuery();
-
-  const [recipesSelected, setRecipesSelected] = useState([
-    { name: '', cost: 0 },
-    { name: '', cost: 0 },
-    { name: '', cost: 0 },
-    { name: '', cost: 0 },
-    { name: '', cost: 0 },
-    { name: '', cost: 0 },
-    { name: '', cost: 0 },
-  ]);
-  const [daySelected, setDaySelected] = useState('');
-
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [recipes, setRecipes] = useState([]);
-  const [totalCost, setTotalCost] = useState(0);
-
-  console.log(recipesSelected);
-
-  const onSubmit = (data) => {
-    console.log(data);
-    const idsOfRecipesSelected = recipesSelected.map((item) => item._id ? item._id: '')
-    const payload = {
-      name: data.name,
-      recipesSelected: idsOfRecipesSelected,
-      weekNumber: Number(week),
-      userId: '622b9ae5f483a18c21ab550d',
-    };
-
-    createMealPlanMutation({
-      variables: {
-        payload: payload,
-      },
-    });
-  };
-
-  const onClickHandler = async (idx) => {
-    setDaySelected(idx);
-    if (!recipes.length) {
-      await getRecipes().then((res) => setRecipes(res?.data?.recipes));
-    }
-    setDialogOpen(true);
-  };
-
-  useEffect(() => {
-    const values = Object.values(recipesSelected);
-    const cost = values.reduce((total, item) => total + item.cost, 0);
-    setTotalCost(cost);
-  }, [recipesSelected]);
+    dialogOpen,
+    setDialogOpen,
+    onSubmit,
+    totalCost,
+    daySelected,
+    onClickHandler,
+    recipesSelected,
+    setRecipesSelected,
+    recipes,
+  } = useMealPlanForm(week);
 
   return (
     <Paper>
