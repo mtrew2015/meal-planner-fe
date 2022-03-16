@@ -3,7 +3,8 @@ import { useMealPlansQuery } from '../../generated/graphql.tsx';
 import { getWeekOfYear } from '../../util/dateHelpers';
 
 export const useLandingPage = () => {
-  const weekOfYear = getWeekOfYear();
+  const [value, setValue] = React.useState(new Date());
+  const [week, setWeek] = React.useState(getWeekOfYear());
   const {
     data: mealPlanData,
     loading,
@@ -11,12 +12,24 @@ export const useLandingPage = () => {
   } = useMealPlansQuery({
     variables: {
       filters: {
-        weekNumber: weekOfYear,
+        weekNumber: week,
       },
     },
   });
 
+
+
+  const handleChange = (newValue) => {
+    setValue(newValue)
+    setWeek(getWeekOfYear(newValue))
+  };
+
+
   return {
     mealPlanData,
+    value,
+    setValue,
+    handleChange,
+    week
   };
 };

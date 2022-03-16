@@ -13,6 +13,7 @@
     "@graphql-codegen/typescript-react-apollo": "^3.2.10",
     "@hookform/error-message": "^2.0.0",
     "@mui/icons-material": "^5.5.0",
+    "@mui/lab": "^5.0.0-alpha.73",
     "@mui/material": "^5.5.0",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.4",
@@ -42,6 +43,10 @@
       "react-app/jest"
     ]
   },
+  "eslintIgnore": [
+    "node_modules",
+    "build/*"
+  ],
   "browserslist": {
     "production": [
       ">0.2%",

@@ -1,5 +1,8 @@
-export const getWeekOfYear = () => {
-  const currentdate = new Date();
+export const getWeekOfYear = (value) => {
+  let currentdate = new Date();
+  if(value){
+    currentdate = value
+  }
   var oneJan = new Date(currentdate.getFullYear(), 0, 1);
   var numberOfDays = Math.floor((currentdate - oneJan) / (24 * 60 * 60 * 1000));
   var result = Math.ceil((currentdate.getDay() + 1 + numberOfDays) / 7);

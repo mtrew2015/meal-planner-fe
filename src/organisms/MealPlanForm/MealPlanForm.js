@@ -10,8 +10,8 @@ import {
 import { RecipeCardContainer } from '../RecipeCardContainer/RecipeCardContainer';
 import './MealPlanForm.scss';
 
-export const MealPlanForm = () => {
-  const week = getWeekOfYear();
+export const MealPlanForm = (props) => {
+  const {week} = props;
   const {
     register,
     handleSubmit,
