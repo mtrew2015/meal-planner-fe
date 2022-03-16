@@ -1,8 +1,13 @@
-query ingredients($filters: ListIngredientInput) {
-  ingredients(filters: $filters) {
+query recipes($filters: ListRecipeInput) {
+  recipes(filters: $filters) {
     _id
     name
-    price
-    qty
+    linkToRecipe
+    serves
+    ingredients {
+      name
+      price
+      serves
+    }
   }
 }

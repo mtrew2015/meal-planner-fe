@@ -3,6 +3,8 @@ import { Button, Dialog, Paper, TextField, FormControl } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { getWeekOfYear } from '../../util/dateHelpers';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useRecipesLazyQuery } from '../../generated/graphql.tsx';
+import { RecipeCardContainer } from '../RecipeCardContainer/RecipeCardContainer';
 
 export const MealPlanForm = () => {
   const week = getWeekOfYear();
@@ -23,6 +25,8 @@ export const MealPlanForm = () => {
     'Sunday',
   ];
 
+  const [getRecipes, { loading, data }] = useRecipesLazyQuery();
+
   const [recipesSelected, setRecipesSelected] = useState({
     Monday: { name: 'Mac and Cheese' },
     Tuesday: { name: 'Mac and Cheese' },
@@ -30,9 +34,15 @@ export const MealPlanForm = () => {
   const [daySelected, setDaySelected] = useState('');
 
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [recipes, setRecipes] = useState([]);
 
-  const onClickHandler = (day) => {
+  console.log(recipes);
+
+  const onClickHandler = async (day) => {
     setDaySelected(day);
+    if (!recipes.length) {
+      await getRecipes().then((res) => setRecipes(res?.data?.recipes));
+    }
     setDialogOpen(true);
   };
 
@@ -68,7 +78,9 @@ export const MealPlanForm = () => {
             );
           }
         })}
-        <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}></Dialog>
+        <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
+          <RecipeCardContainer recipes={recipes} />
+        </Dialog>
       </FormControl>
     </Paper>
   );
