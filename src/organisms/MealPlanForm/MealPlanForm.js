@@ -24,42 +24,45 @@ export const MealPlanForm = (props) => {
     recipesSelected,
     setRecipesSelected,
     recipes,
-    isEnabled
+    isEnabled,
   } = useMealPlanForm(week);
 
   return (
-    <Paper className="mealPlanContainer">
+    <Paper className='mealPlanFormContainer'>
       <h1>Create Meal Plan</h1>
+      <p className='cost'>Total Cost: ${totalCost} </p>
+
       <FormControl>
         <TextField
+        className="mealPlanNameInput"
           placeholder='Meal Plan Name'
           {...register('name', { required: 'Name of meal plan is required' })}
         />
-        <p>Week: {week}</p>
-        <p>Total Cost: {totalCost} </p>
-        Recipes Selected:
         {daysOfWeek.map((day, idx) => {
           if (recipesSelected[idx].name) {
             return (
-              <div className='selectedMeal'>
-                <p>
-                  {day}: {recipesSelected[idx]?.name}
-                </p>
+              <div className='mealPlanBlock'>
+                <div className='dayTrashDiv'>
+                  <p className='day'> {day}</p>
+                  <DeleteIcon
+                    className='trashBin'
+                    onClick={() =>
+                      setRecipesSelected((prev) => {
+                        prev[idx] = { cost: 0, name: '' };
+                        return [...prev];
+                      })
+                    }
+                  />
+                </div>
+
+                <p>{recipesSelected[idx]?.name}</p>
                 <p>Cost: ${recipesSelected[idx]?.cost}</p>
-                <DeleteIcon
-                  onClick={() =>
-                    setRecipesSelected((prev) => {
-                      prev[idx] = { cost: 0, name: '' };
-                      return [...prev];
-                    })
-                  }
-                />
               </div>
             );
           } else {
             return (
-              <div>
-                {day}:{' '}
+              <div className='mealPlanBlock'>
+                <p className='day'>{day}: </p>
                 <Button onClick={() => onClickHandler(idx)}>
                   Select Recipe
                 </Button>
@@ -79,7 +82,9 @@ export const MealPlanForm = (props) => {
             setRecipesSelected={setRecipesSelected}
           />
         </Dialog>
-        <Button disabled={!isEnabled} onClick={handleSubmit(onSubmit)}>Submit</Button>
+        <Button disabled={!isEnabled} onClick={handleSubmit(onSubmit)}>
+          Submit
+        </Button>
       </FormControl>
     </Paper>
   );

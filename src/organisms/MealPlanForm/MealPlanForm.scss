@@ -14,3 +14,58 @@
   align-items: center;
   width: 50%;
 }
+
+.mealPlanFormContainer{
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height:100%;
+  color: rgb(66, 62, 62);
+  p{
+    margin: 8px;
+  }
+
+  h1{
+    margin: 8px;
+    font-weight: bolder;
+  }
+
+  .mealPlanBlock{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid gray;
+    width: 450px;
+    height: 100px;
+  
+  }
+
+  .dayTrashDiv{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content:center;
+  }
+
+  .trashBin{
+    position: absolute;
+    right: 20px
+  }
+
+  .day{
+    font-weight: 700;
+  }
+
+  .cost{
+    font-weight: 500;
+    font-size: 20px;
+  }
+
+  .mealPlanNameInput{
+    margin-bottom: 10px;
+  }
+
+}
