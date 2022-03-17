@@ -1,3 +1,5 @@
+import './MealPlan.scss'
+
 export const MealPlan = (props) => {
   console.log(props);
   const mealPlan = props?.data?.mealPlans[0];
@@ -20,14 +22,14 @@ export const MealPlan = (props) => {
   });
   console.log(mealPlan);
   return (
-    <div>
+    <div className="mealPlanViewContainer">
       {daysOfWeek.map((day, idx) => {
         return (
-          <div>
-            <p>
+          <div className="mealPlanBlock">
+            <h2>
               {day}: {mealPlan.recipesSelected[idx]?.name}
-            </p>
-            <p>Cost: {costMap[idx]?.cost} </p>
+            </h2>
+            <p>Cost: ${costMap[idx]?.cost.toFixed(2)} </p>
           </div>
         );
       })}

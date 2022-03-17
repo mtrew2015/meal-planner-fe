@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './LandingPage.scss'
 
 import { useLandingPage } from '../LandingPage/useLandingPage';
 import { MealPlan } from '../../organisms/MealPlan/MealPlan';
@@ -15,7 +16,7 @@ export const LandingPage = () => {
 
   if (mealPlanData?.mealPlans?.length) {
     return (
-      <div>
+      <div className="landingContainer">
         {!showCalendar && (
           <CalendarMonthIcon onClick={() => setShowCalendar(!showCalendar)} />
         )}

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 import { useForm } from 'react-hook-form';
 import {
   useRecipesLazyQuery,
@@ -29,6 +29,15 @@ export const useMealPlanForm = (week) => {
     { name: '', cost: 0 },
     { name: '', cost: 0 },
   ]);
+
+  const isEnabled = useMemo(() => {
+    for(let i = 0; i< recipesSelected.length; i++) {
+      if(recipesSelected[i].name === ""){
+        return false
+      }
+    }
+    return true
+  }, [recipesSelected])
 
   useEffect(() => {
     const values = Object.values(recipesSelected);
@@ -95,6 +104,7 @@ export const useMealPlanForm = (week) => {
     recipesSelected,
     setRecipesSelected,
     recipes,
+    isEnabled
 
   }
 }

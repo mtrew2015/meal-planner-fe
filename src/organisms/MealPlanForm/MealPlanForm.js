@@ -24,10 +24,11 @@ export const MealPlanForm = (props) => {
     recipesSelected,
     setRecipesSelected,
     recipes,
+    isEnabled
   } = useMealPlanForm(week);
 
   return (
-    <Paper>
+    <Paper className="mealPlanContainer">
       <h1>Create Meal Plan</h1>
       <FormControl>
         <TextField
@@ -78,7 +79,7 @@ export const MealPlanForm = (props) => {
             setRecipesSelected={setRecipesSelected}
           />
         </Dialog>
-        <Button onClick={handleSubmit(onSubmit)}>Submit</Button>
+        <Button disabled={!isEnabled} onClick={handleSubmit(onSubmit)}>Submit</Button>
       </FormControl>
     </Paper>
   );
