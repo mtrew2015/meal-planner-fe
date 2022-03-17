@@ -6,6 +6,7 @@
   justify-content: center;
   height:100%;
   color: rgb(66, 62, 62);
+  margin-top: 10px;
 
   .mealPlanBlock{
     display: flex;
@@ -14,8 +15,15 @@
     justify-content: center;
     border: 1px solid gray;
     width: 100%;
-    height: 100px;
+    height: 90px;
   }
+
+  .cost{
+    font-weight: 500;
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
 
   h2{
     font-size: 18px;
@@ -25,5 +33,10 @@
   p{
     font-weight: 500;
     font-size: 18px;
+    margin: 2px
+  }
+
+  .day{
+    font-weight: 700;
   }
 }

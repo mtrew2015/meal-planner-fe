@@ -5,5 +5,5 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Roboto', sans-serif;
 `;

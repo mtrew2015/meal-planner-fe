@@ -1,4 +1,4 @@
-import './MealPlan.scss'
+import './MealPlan.scss';
 
 export const MealPlan = (props) => {
   console.log(props);
@@ -12,6 +12,7 @@ export const MealPlan = (props) => {
     'Saturday',
     'Sunday',
   ];
+ 
   const costMap = mealPlan.recipesSelected.map((item) => {
     return {
       cost: item.ingredients.reduce(
@@ -20,15 +21,19 @@ export const MealPlan = (props) => {
       ),
     };
   });
+  const totalCost = costMap.reduce((total, item) => {
+    return total + item.cost
+  }, 0)
   console.log(mealPlan);
   return (
-    <div className="mealPlanViewContainer">
+    <div className='mealPlanViewContainer'>
+      <h1>Menu</h1>
+      <p className='cost'>Total Cost: ${totalCost} </p>
       {daysOfWeek.map((day, idx) => {
         return (
-          <div className="mealPlanBlock">
-            <h2>
-              {day}: {mealPlan.recipesSelected[idx]?.name}
-            </h2>
+          <div className='mealPlanBlock'>
+            <p className='day'>{day}</p>
+            <p>{mealPlan.recipesSelected[idx]?.name}</p>
             <p>Cost: ${costMap[idx]?.cost.toFixed(2)} </p>
           </div>
         );
