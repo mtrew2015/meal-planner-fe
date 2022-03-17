@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './LandingPage.scss'
+import './LandingPage.scss';
 
 import { useLandingPage } from '../LandingPage/useLandingPage';
 import { MealPlan } from '../../organisms/MealPlan/MealPlan';
@@ -16,35 +16,13 @@ export const LandingPage = () => {
 
   if (mealPlanData?.mealPlans?.length) {
     return (
-      <div className="landingContainer">
-        {!showCalendar && (
-          <CalendarMonthIcon onClick={() => setShowCalendar(!showCalendar)} />
-        )}
-
-        {showCalendar && (
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DesktopDatePicker
-              inputFormat='MM/dd/yyyy'
-              value={value}
-              onChange={handleChange}
-              renderInput={(params) => <TextField {...params} />}
-            />
-          </LocalizationProvider>
-        )}
+      <div className='landingContainer'>
         {mealPlanData?.mealPlans?.length && <MealPlan data={mealPlanData} />}
       </div>
     );
   } else {
     return (
       <>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <DesktopDatePicker
-            inputFormat='MM/dd/yyyy'
-            value={value}
-            onChange={handleChange}
-            renderInput={(params) => <TextField {...params} />}
-          />
-        </LocalizationProvider>
         <MealPlanForm week={week} />
       </>
     );
