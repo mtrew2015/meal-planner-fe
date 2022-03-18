@@ -7,6 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { RecipeCardContainer } from '../RecipeCardContainer/RecipeCardContainer';
 import './MealPlanForm.scss';
 import { useMealPlanForm } from './useMealPlanForm';
+import { MealPlanBlock } from '../MealPlanBlock/MealPlanBlock';
 
 export const MealPlanForm = (props) => {
   const { week } = props;
@@ -34,30 +35,20 @@ export const MealPlanForm = (props) => {
 
       <FormControl>
         <TextField
-        className="mealPlanNameInput"
+          className='mealPlanNameInput'
           placeholder='Meal Plan Name'
           {...register('name', { required: 'Name of meal plan is required' })}
         />
         {daysOfWeek.map((day, idx) => {
-          if (recipesSelected[idx].name) {
+          if (recipesSelected[idx][0].name) {
             return (
-              <div className='mealPlanBlock'>
-                <div className='dayTrashDiv'>
-                  <p className='day'> {day}</p>
-                  <DeleteIcon
-                    className='trashBin'
-                    onClick={() =>
-                      setRecipesSelected((prev) => {
-                        prev[idx] = { cost: 0, name: '' };
-                        return [...prev];
-                      })
-                    }
-                  />
-                </div>
-
-                <p>{recipesSelected[idx]?.name}</p>
-                <p>Cost: ${recipesSelected[idx]?.cost}</p>
-              </div>
+              <MealPlanBlock
+                recipesSelected={recipesSelected[idx]}
+                onClickHandler={onClickHandler}
+                setRecipesSelected={setRecipesSelected}
+                idx={idx}
+                day={day}
+              />
             );
           } else {
             return (

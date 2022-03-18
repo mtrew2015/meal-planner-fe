@@ -1,19 +1,22 @@
 query mealPlans($filters: ListMealPlanInput) {
   mealPlans(filters: $filters) {
     _id
-    recipesSelected {
-      _id
-      ingredients {
+    entrees {
+      recipesSelected {
+        _id
+        ingredients {
+          name
+          price
+          serves
+        }
+        linkToRecipe
         name
-        price
         serves
       }
-      linkToRecipe
-      name
-      serves
     }
     userId
     weekNumber
     name
   }
 }
+
