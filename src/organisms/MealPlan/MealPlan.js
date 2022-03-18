@@ -28,7 +28,7 @@ export const MealPlan = (props) => {
   return (
     <div className='mealPlanViewContainer'>
       <h1>Menu</h1>
-      <p className='cost'>Total Cost: ${totalCost} </p>
+      <p className='cost'>Total Cost: ${totalCost.toFixed(2)} </p>
       {daysOfWeek.map((day, idx) => {
         return (
           <div className='mealPlanBlock'>

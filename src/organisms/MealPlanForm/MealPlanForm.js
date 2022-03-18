@@ -30,7 +30,7 @@ export const MealPlanForm = (props) => {
   return (
     <Paper className='mealPlanFormContainer'>
       <h1>Create Meal Plan</h1>
-      <p className='cost'>Total Cost: ${totalCost} </p>
+      <p className='cost'>Total Cost: ${totalCost.toFixed(2)} </p>
 
       <FormControl>
         <TextField
