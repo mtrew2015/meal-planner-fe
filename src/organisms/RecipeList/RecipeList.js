@@ -1,4 +1,3 @@
-import { RecipeCard } from '../RecipeCard/RecipeCard';
 import { useRecipeList } from './useRecipeList';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -10,7 +9,7 @@ import Paper from '@mui/material/Paper';
 import { RecipeListCard } from '../RecipeListCard';
 
 export const RecipeList = () => {
-  const { recipes, loading } = useRecipeList();
+  const { recipes } = useRecipeList();
   return (
     <div>
       <TableContainer component={Paper}>
