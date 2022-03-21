@@ -9,11 +9,11 @@ export const RecipeListCard = (props) => {
     .toFixed(2);
   return (
     <TableRow key={recipe.name}>
-      <TableCell component='th' scope='row'>
+      <TableCell  scope='row'>
         {recipe.name}
       </TableCell>
       <TableCell></TableCell>
-      <TableCell component='th' scope='row'>
+      <TableCell  scope='row'>
         ${cost}
       </TableCell>
       <TableCell>

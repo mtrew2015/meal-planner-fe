@@ -16,13 +16,17 @@ export const RecipeList = () => {
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label='simple table'>
           <TableHead>
-            <TableCell>Name</TableCell>
-            <TableCell>Category</TableCell>
-            <TableCell>Price</TableCell>
-            <TableCell>Edit</TableCell>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell>Category</TableCell>
+              <TableCell>Price</TableCell>
+              <TableCell>Edit</TableCell>
+            </TableRow>
           </TableHead>
-          {recipes &&
-            recipes.map((recipe) => <RecipeListCard recipe={recipe} />)}
+          <TableBody>
+            {recipes &&
+              recipes.map((recipe) => <RecipeListCard key={recipe._id} recipe={recipe} />)}
+          </TableBody>
         </Table>
       </TableContainer>
     </div>
