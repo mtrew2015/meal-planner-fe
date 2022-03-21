@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useCreateRecipeMutation } from '../../generated/graphql.tsx';
+import { useNavigate } from "react-router-dom";
+
 
 export const useCreateRecipe = () => {
   const [createRecipeMutation, { data, loading, error }] =
     useCreateRecipeMutation({});
+
+    const navigate = useNavigate();
 
   const {
     register,
@@ -24,6 +28,7 @@ export const useCreateRecipe = () => {
       serves: Number(data.serves),
       ingredients: ingredients,
       linkToRecipe: data.linkToRecipe,
+      category: data.category
     };
     createRecipeMutation({
       variables: {
@@ -31,6 +36,7 @@ export const useCreateRecipe = () => {
       },
     });
     console.log(data);
+    navigate('/')
   };
 
   const addIngredient = (data) => {
