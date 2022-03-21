@@ -4,16 +4,19 @@ import {
   useRecipesLazyQuery,
   useCreateMealPlanMutation,
 } from '../../generated/graphql.tsx';
+import {weekState} from '../../store/index';
+import {useRecoilState} from 'recoil';
 
 import { useNavigate } from 'react-router-dom';
 
-export const useMealPlanForm = (week) => {
+export const useMealPlanForm = () => {
   const [
     createMealPlanMutation,
-    { data: mealPlanData, loading: mealPlanDataLoading, error },
+    { data: mealPlanData, loading: mealPlanDataLoading, error,},
   ] = useCreateMealPlanMutation({});
 
   const navigate = useNavigate();
+  const [week, setWeek] = useRecoilState(weekState)
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [recipes, setRecipes] = useState([]);

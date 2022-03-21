@@ -18,6 +18,7 @@ export const useLandingPage = () => {
         weekNumber: week,
       },
     },
+    fetchPolicy: "no-cache" 
   });
 
 
