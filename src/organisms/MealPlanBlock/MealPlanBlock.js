@@ -3,7 +3,6 @@ import './MealPlanBlock.scss';
 
 export const MealPlanBlock = (props) => {
   const { setRecipesSelected, onClickHandler, idx, day } = props;
-  console.log(props)
   
   const dayCost = props.recipesSelected.reduce(
     (total, item) => total + item.cost,
