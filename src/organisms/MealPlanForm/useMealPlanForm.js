@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   useRecipesLazyQuery,
@@ -6,7 +6,6 @@ import {
 } from '../../generated/graphql.tsx';
 
 export const useMealPlanForm = (week) => {
-
   const [
     createMealPlanMutation,
     { data: mealPlanData, loading: mealPlanDataLoading, error },
@@ -21,30 +20,29 @@ export const useMealPlanForm = (week) => {
   const [daySelected, setDaySelected] = useState('');
 
   const [recipesSelected, setRecipesSelected] = useState([
-    { name: '', cost: 0 },
-    { name: '', cost: 0 },
-    { name: '', cost: 0 },
-    { name: '', cost: 0 },
-    { name: '', cost: 0 },
-    { name: '', cost: 0 },
-    { name: '', cost: 0 },
+    [{ name: '', cost: 0 }],
+    [{ name: '', cost: 0 }],
+    [{ name: '', cost: 0 }],
+    [{ name: '', cost: 0 }],
+    [{ name: '', cost: 0 }],
+    [{ name: '', cost: 0 }],
+    [{ name: '', cost: 0 }],
   ]);
 
   const isEnabled = useMemo(() => {
-    for(let i = 0; i< recipesSelected.length; i++) {
-      if(recipesSelected[i].name === ""){
-        return false
+    for (let i = 0; i < recipesSelected.length; i++) {
+      if (recipesSelected[i].name === '') {
+        return false;
       }
     }
-    return true
-  }, [recipesSelected])
+    return true;
+  }, [recipesSelected]);
 
   useEffect(() => {
     const values = Object.values(recipesSelected);
     const cost = values.reduce((total, item) => total + item.cost, 0);
     setTotalCost(cost);
   }, [recipesSelected]);
-
 
   const onClickHandler = async (idx) => {
     setDaySelected(idx);
@@ -54,13 +52,14 @@ export const useMealPlanForm = (week) => {
     setDialogOpen(true);
   };
 
-
   const onSubmit = (data) => {
-    console.log(data);
-    const idsOfRecipesSelected = recipesSelected.map((item) => item._id ? item._id: '')
+    const eachDay = recipesSelected.map((day) => {
+      const idsOfEachDay = day.map((recipe) => (recipe._id ? recipe._id : ''));
+      return { recipesSelected: idsOfEachDay };
+    });
     const payload = {
       name: data.name,
-      recipesSelected: idsOfRecipesSelected,
+      entrees: eachDay,
       weekNumber: Number(week),
       userId: '622b9ae5f483a18c21ab550d',
     };
@@ -71,7 +70,6 @@ export const useMealPlanForm = (week) => {
       },
     });
   };
-
 
   const {
     register,
@@ -90,7 +88,6 @@ export const useMealPlanForm = (week) => {
     'Sunday',
   ];
 
-
   return {
     daysOfWeek,
     register,
@@ -104,7 +101,6 @@ export const useMealPlanForm = (week) => {
     recipesSelected,
     setRecipesSelected,
     recipes,
-    isEnabled
-
-  }
-}
+    isEnabled,
+  };
+};

@@ -12,7 +12,15 @@ export const RecipeCard = (props) => {
 
   const onClickHandler = () => {
     setRecipesSelected((prev) => {
-      prev[daySelected] = { ...recipe, cost: cost };
+      if (prev[daySelected][0]?.name) {
+        prev[daySelected] = [
+          ...prev[daySelected],
+          { ...recipe, cost: cost },
+        ];
+      } else {
+        prev[daySelected] = [{ ...recipe, cost: cost }];
+      }
+
       return [...prev];
     });
     setDialogOpen(false);
