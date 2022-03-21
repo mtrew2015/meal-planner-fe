@@ -42,6 +42,14 @@ export const CreateRecipe = () => {
           placeholder='Link To Recipe'
           className='textField'
         />
+         <TextField
+          {...register('category', {
+            required: 'category is required',
+          })}
+          required
+          placeholder='Category'
+          className='textField'
+        />
         <ErrorMessage errors={errors} name='linkToRecipe' />
         <TextField
           {...register('serves', {

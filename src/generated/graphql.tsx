@@ -22,13 +22,14 @@ export type CreateIngredientInput = {
 };
 
 export type CreateMealPlanInput = {
-  entrees: Array<Scalars['String']>;
+  entrees: Array<MealPlanInput>;
   name: Scalars['String'];
   userId: Scalars['String'];
   weekNumber: Scalars['Float'];
 };
 
 export type CreateRecipeInput = {
+  category: Scalars['String'];
   ingredients: Array<IngredientInput>;
   linkToRecipe: Scalars['String'];
   name: Scalars['String'];
@@ -84,6 +85,7 @@ export type ListMealPlanInput = {
 
 export type ListRecipeInput = {
   _id?: InputMaybe<Scalars['String']>;
+  category?: InputMaybe<Scalars['String']>;
   ingredients?: InputMaybe<Array<IngredientInput>>;
   linkToRecipe?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
@@ -107,7 +109,7 @@ export type MealPlan = {
 };
 
 export type MealPlanInput = {
-  recipesSelected: Array<RecipeInput>;
+  recipesSelected: Array<Scalars['String']>;
 };
 
 export type Mutation = {
@@ -241,6 +243,7 @@ export type QueryUsersArgs = {
 export type Recipe = {
   __typename?: 'Recipe';
   _id: Scalars['String'];
+  category: Scalars['String'];
   ingredients: Array<IngredientObject>;
   linkToRecipe: Scalars['String'];
   name: Scalars['String'];
@@ -249,6 +252,7 @@ export type Recipe = {
 
 export type RecipeInput = {
   _id: Scalars['String'];
+  category: Scalars['String'];
   ingredients: Array<IngredientInput>;
   linkToRecipe: Scalars['String'];
   name: Scalars['String'];
@@ -272,6 +276,7 @@ export type UpdateMealPlanInput = {
 
 export type UpdateRecipeInput = {
   _id?: InputMaybe<Scalars['String']>;
+  category?: InputMaybe<Scalars['String']>;
   ingredients?: InputMaybe<Array<IngredientInput>>;
   linkToRecipe?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
@@ -305,7 +310,7 @@ export type CreateRecipeMutationVariables = Exact<{
 }>;
 
 
-export type CreateRecipeMutation = { __typename?: 'Mutation', createRecipe: { __typename?: 'Recipe', _id: string, name: string, serves: number, ingredients: Array<{ __typename?: 'IngredientObject', name: string, price: number, serves: number }> } };
+export type CreateRecipeMutation = { __typename?: 'Mutation', createRecipe: { __typename?: 'Recipe', _id: string, name: string, serves: number, category: string, ingredients: Array<{ __typename?: 'IngredientObject', name: string, price: number, serves: number }> } };
 
 export type MealPlansQueryVariables = Exact<{
   filters?: InputMaybe<ListMealPlanInput>;
@@ -319,7 +324,7 @@ export type RecipesQueryVariables = Exact<{
 }>;
 
 
-export type RecipesQuery = { __typename?: 'Query', recipes: Array<{ __typename?: 'Recipe', _id: string, name: string, linkToRecipe: string, serves: number, ingredients: Array<{ __typename?: 'IngredientObject', name: string, price: number, serves: number }> }> };
+export type RecipesQuery = { __typename?: 'Query', recipes: Array<{ __typename?: 'Recipe', _id: string, name: string, linkToRecipe: string, serves: number, category: string, ingredients: Array<{ __typename?: 'IngredientObject', name: string, price: number, serves: number }> }> };
 
 
 export const CreateMealPlanDocument = gql`
@@ -369,6 +374,7 @@ export const CreateRecipeDocument = gql`
     }
     name
     serves
+    category
   }
 }
     `;
@@ -456,6 +462,7 @@ export const RecipesDocument = gql`
     name
     linkToRecipe
     serves
+    category
     ingredients {
       name
       price

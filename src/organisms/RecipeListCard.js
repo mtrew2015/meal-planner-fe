@@ -12,7 +12,9 @@ export const RecipeListCard = (props) => {
       <TableCell  scope='row'>
         {recipe.name}
       </TableCell>
-      <TableCell></TableCell>
+      <TableCell>
+        {recipe.category}
+      </TableCell>
       <TableCell  scope='row'>
         ${cost}
       </TableCell>

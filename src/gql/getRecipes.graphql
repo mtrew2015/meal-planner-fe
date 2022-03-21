@@ -4,6 +4,7 @@ query recipes($filters: ListRecipeInput) {
     name
     linkToRecipe
     serves
+    category
     ingredients {
       name
       price

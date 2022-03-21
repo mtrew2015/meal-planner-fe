@@ -5,15 +5,19 @@ import {
   useCreateMealPlanMutation,
 } from '../../generated/graphql.tsx';
 
+import { useNavigate } from 'react-router-dom';
+
 export const useMealPlanForm = (week) => {
   const [
     createMealPlanMutation,
     { data: mealPlanData, loading: mealPlanDataLoading, error },
   ] = useCreateMealPlanMutation({});
 
+  const navigate = useNavigate();
+
   const [dialogOpen, setDialogOpen] = useState(false);
   const [recipes, setRecipes] = useState([]);
-  const [totalCost, setTotalCost] = useState(0.00);
+  const [totalCost, setTotalCost] = useState(0.0);
 
   const [getRecipes, { loading, data }] = useRecipesLazyQuery();
 
@@ -39,7 +43,7 @@ export const useMealPlanForm = (week) => {
   }, [recipesSelected]);
 
   useEffect(() => {
-    const values = Object.values(recipesSelected)
+    const values = Object.values(recipesSelected);
     const mapped = values.map((day) => day.map((item) => item.cost));
     const cost = mapped.reduce((total, item) => total + Number(item), 0);
     setTotalCost(cost);
@@ -70,6 +74,8 @@ export const useMealPlanForm = (week) => {
         payload: payload,
       },
     });
+
+    navigate('/');
   };
 
   const {
