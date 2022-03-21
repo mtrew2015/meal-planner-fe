@@ -28,7 +28,7 @@ export const MealPlanBlock = (props) => {
         return <p>{item.name}</p>;
       })}
       <p>Cost: ${dayCost}</p>
-      <p onClick={() => onClickHandler(idx)}>Add More</p>
+      <p className="addMore" onClick={() => onClickHandler(idx)}>Add More</p>
     </div>
   );
 };
