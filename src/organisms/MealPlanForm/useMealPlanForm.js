@@ -13,7 +13,7 @@ export const useMealPlanForm = (week) => {
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [recipes, setRecipes] = useState([]);
-  const [totalCost, setTotalCost] = useState(0);
+  const [totalCost, setTotalCost] = useState(0.00);
 
   const [getRecipes, { loading, data }] = useRecipesLazyQuery();
 
@@ -39,8 +39,9 @@ export const useMealPlanForm = (week) => {
   }, [recipesSelected]);
 
   useEffect(() => {
-    const values = Object.values(recipesSelected);
-    const cost = values.reduce((total, item) => total + item.cost, 0);
+    const values = Object.values(recipesSelected)
+    const mapped = values.map((day) => day.map((item) => item.cost));
+    const cost = mapped.reduce((total, item) => total + Number(item), 0);
     setTotalCost(cost);
   }, [recipesSelected]);
 
