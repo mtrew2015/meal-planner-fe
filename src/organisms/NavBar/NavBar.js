@@ -13,16 +13,19 @@ import {useRecoilState} from 'recoil'
 import {dateState, weekState} from '../../store/index'
 import {getWeekOfYear} from '../../util/dateHelpers'
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import {useNavigate} from 'react-router-dom';
 
 export const NavBar = () => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useRecoilState(dateState)
   const [week, setWeek] = useRecoilState(weekState)
   const [showCalendar, setShowCalendar] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (newValue) => {
     setValue(newValue)
     setWeek(getWeekOfYear(newValue))
+    navigate('/')
   };
 
   return (
