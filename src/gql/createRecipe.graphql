@@ -10,6 +10,7 @@ mutation createRecipe($payload:CreateRecipeInput!)
     }
     name
     serves
+    category
     
   }
 }
